@@ -542,7 +542,12 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+<<<<<<< Updated upstream
   m_KeepAnimatorControllerStateOnDisable: 0
+=======
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+>>>>>>> Stashed changes
 --- !u!1 &5062559287153234616
 GameObject:
   m_ObjectHideFlags: 0

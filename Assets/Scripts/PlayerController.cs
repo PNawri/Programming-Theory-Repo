@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float turnSpeed;
     [SerializeField] private float jumpPower;
     [SerializeField] private float gravityMod;
+    [SerializeField] private TMPro.TextMeshProUGUI nameText;
+    [SerializeField] private TMPro.TextMeshProUGUI hpText;
+
+    private int maxHP = 100;
+    private int currentHP;
 
 
     // Start is called before the first frame update
@@ -25,6 +31,8 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         motion = GetComponent<Animator>();
         canMove = true;
+        currentHP = maxHP;
+        nameText.text = GameManager.Instance.playerName;
     }
 
     // Update is called once per frame
@@ -77,6 +85,13 @@ public class PlayerController : MonoBehaviour
         {
             motion.SetBool("isMoving", false);            
         }
+
+        if (currentHP < 1)
+        {
+            GameOver();
+        }
+
+        hpText.text = "HP: " + currentHP;
     }
 
     void Attack()
@@ -101,6 +116,21 @@ public class PlayerController : MonoBehaviour
         {
             onGround = true;
         }
+<<<<<<< Updated upstream
+=======
+
+        if (collision.gameObject.CompareTag("Monster"))
+        {
+            currentHP -= 10;
+            Debug.Log("Player HP:" + currentHP);
+        }
+    }
+
+    private void GameOver()
+    {
+        SceneManager.LoadScene(2);
+    }
+>>>>>>> Stashed changes
 
         
     }
