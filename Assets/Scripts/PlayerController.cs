@@ -116,8 +116,6 @@ public class PlayerController : MonoBehaviour
         {
             onGround = true;
         }
-<<<<<<< Updated upstream
-=======
 
         if (collision.gameObject.CompareTag("Monster"))
         {
@@ -130,8 +128,5 @@ public class PlayerController : MonoBehaviour
     {
         SceneManager.LoadScene(2);
     }
->>>>>>> Stashed changes
-
-        
-    }
+  
 }
