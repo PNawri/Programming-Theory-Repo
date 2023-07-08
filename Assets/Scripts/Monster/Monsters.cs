@@ -6,7 +6,7 @@ public class Monsters : MonoBehaviour
 {
     [SerializeField] protected float speed;
     [SerializeField] protected int maxHP;
-
+    
     protected int currentHP;
     protected int maxDamage = 10;
     protected int minDamage = 8;

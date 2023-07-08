@@ -19,9 +19,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravityMod;
     [SerializeField] private TMPro.TextMeshProUGUI nameText;
     [SerializeField] private TMPro.TextMeshProUGUI hpText;
-
+    
     private int maxHP = 100;
     private int currentHP;
+    private float  attackDelay = 0.5f;
+    private float nextAttackTime = 0;
 
 
     // Start is called before the first frame update
@@ -47,16 +49,21 @@ public class PlayerController : MonoBehaviour
             transform.Translate(Vector3.forward * verticalInput * speed * Time.deltaTime * defDis);
         }
        
-        if(Input.GetMouseButtonDown(0))
+        if(Time.time >= nextAttackTime)
         {
-            Attack();
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                Attack();
 
-        if(Input.GetMouseButtonDown(0) && onGround)
-        {
-            Attack();
-            canMove = false;
+                if(onGround)
+                {
+                    canMove = false;
+                }
+
+                nextAttackTime = Time.time + attackDelay;
+            }                      
         }
+        
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -128,5 +135,5 @@ public class PlayerController : MonoBehaviour
     {
         SceneManager.LoadScene(2);
     }
-  
+
 }
