@@ -9,4 +9,9 @@ public class GameOverUI : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    public void TryAgain()
+    {
+        SceneManager.LoadScene(1);
+    }
 }

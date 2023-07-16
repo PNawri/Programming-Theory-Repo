@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class Sparrow : Monsters
 {
-    [SerializeField] private float fly;
- 
+    [SerializeField] float fly;
+
+    private void Update()
+    {
+        Move();
+    }
+
     protected override void Move() //POLYMORPHISM
     {
         base.Move();
-        monsterRb.AddForce(Vector3.up * fly);
+
+        monsterRb.AddForce(Vector3.up * fly * Time.deltaTime);
         
         if(transform.position.y > 1)
         {
