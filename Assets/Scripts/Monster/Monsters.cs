@@ -10,19 +10,16 @@ public class Monsters : MonoBehaviour
     protected Rigidbody monsterRb;
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
+        player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         monsterRb = GetComponent<Rigidbody>();
-        player = GameObject.Find("Player").GetComponent<Transform>();
     }
 
     
     protected virtual void Move()
     {
-        Vector3 lookDirection = (player.transform.position - transform.position).normalized;
-        monsterRb.AddForce(lookDirection * speed * Time.deltaTime);
-
         transform.LookAt(player);
-                
+        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
     }    
 }

@@ -2,21 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageManager : MonoBehaviour
+public class MonstersHealth : MonoBehaviour
 {
     [SerializeField] int maxHP;
-    [SerializeField] float pushForce;
+    [SerializeField] float pushBack;
 
     public int attack;
-    public bool die;
-    public int percentHP;
+    public bool die = false;
+    //public int percentHP;
 
     int currentHP;
     Animator animator;
         
     void Start()
     {
-        die = false;
         currentHP = maxHP;
         animator = GetComponent<Animator>();
     }
@@ -28,23 +27,29 @@ public class DamageManager : MonoBehaviour
             Die();
         }
 
-        percentHP = (currentHP / maxHP) * 100;
+        //percentHP = (currentHP / maxHP) * 100;
     }
    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Sword") && !die)
         {
-            var playerMaxAttack = GameObject.Find("Player").GetComponent<PlayerController>().maxAttack;
-            var playerMinAttack = GameObject.Find("Player").GetComponent<PlayerController>().minAttack;
-            currentHP -= Random.Range(playerMinAttack, playerMaxAttack);
+            var playerMaxAttack = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>().maxAttack;
+            var playerMinAttack = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>().minAttack;
+            int amount = Random.Range(playerMinAttack, playerMaxAttack);
             var monsterRb = GetComponent<Rigidbody>();
-            var playerTransform = GameObject.Find("Player").GetComponent<Transform>();
+            var playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
             Vector3 pushDirection = (transform.position - playerTransform.position).normalized;
-            animator.SetTrigger("GetHit");
-            monsterRb.AddForce(pushDirection * pushForce, ForceMode.Impulse);
-            Debug.Log(gameObject.name + " HP " + currentHP);
+            monsterRb.AddForce(pushDirection * pushBack, ForceMode.Impulse);
+            GetHit(amount);
         }
+    }
+
+    void GetHit(int amount)
+    {
+        currentHP -= amount;
+        animator.SetTrigger("GetHit");
+        Debug.Log(gameObject.name + " HP " + currentHP);
     }
 
     public void Die()

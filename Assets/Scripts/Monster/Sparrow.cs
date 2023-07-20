@@ -5,7 +5,7 @@ using UnityEngine;
 public class Sparrow : Monsters
 {
     [SerializeField] float fly;
-
+    
     private void Update()
     {
         Move();
